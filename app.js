@@ -73,10 +73,22 @@ yargs.command({
 
 // Create update command
 yargs.command({
-  command: 'edit',
+  command: 'update',
   describe: 'Update a note\'s body',
-  handler() {
-    console.log('Editing a note')
+  builder: {
+    title: {
+      describe: 'Note\'s title',
+      demandOption: true,
+      type: 'string'
+    },
+    body: {
+      describe: 'Note\'s body',
+      demandOption: true,
+      type: 'string'
+    }
+  },
+  handler(argv) {
+    printResult(notes.updateNote(argv.title, argv.body))
   }
 })
 

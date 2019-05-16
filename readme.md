@@ -13,9 +13,6 @@ eg:
 
 
 ToDo
-- Read note function
-- Update note function
-- List notes function
 - Actually use markdown for readme
 - Improve readme documentation
 - Move todo's and other issues to github issue tracker

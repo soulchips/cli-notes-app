@@ -71,6 +71,21 @@ const readNote = (title) => {
     }
 }
 
+const updateNote = (title, body) => {
+    let notes = loadNotes()
+    let notesUpdate = []
+    
+    notes.forEach((note) => {
+        if(note.title === title) {
+            note.body = body
+        }
+
+        notesUpdate.push(note)
+    })
+
+    return saveNotes(notesUpdate)
+}
+
 const findNote = (notes, title) => {
     return notes.find((note) => note.title === title)
 }
@@ -107,5 +122,6 @@ module.exports = {
     listNotes: listNotes,
     addNote: addNote,
     removeNote: removeNote,
-    readNote: readNote
+    readNote: readNote,
+    updateNote: updateNote
 }
