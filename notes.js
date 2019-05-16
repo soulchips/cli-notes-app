@@ -1,15 +1,26 @@
 const fs = require('fs')
 
 
-const getNotes = function () {
-    return 'Your notes...'
+const listNotes = () =>  {
+    let notes = loadNotes()
+    let noteTitles = []
+
+    notes.forEach((note) => {
+        noteTitles.push(note.title)
+    })
+
+    return {
+        status: 0,
+        message: 'Your Notes:',
+        list: noteTitles
+    }
 }
 
 const addNote = (title, body) => {
     let notes = loadNotes()
-    let duplicateNotes = findNote(notes, title)
+    let duplicateNote = findNote(notes, title)
 
-    if(duplicateNotes.length > 0) {
+    if(duplicateNote) {
         return {
             status: 1,
             message: 'Note cannot be saved. Title must be unique'
@@ -43,10 +54,25 @@ const removeNote = (title) => {
     }
 }
 
-const findNote = (notes, title) => {
-    let resultList = notes.filter((note) => note.title === title)
+const readNote = (title) => {
+    let notes = loadNotes()
+    let note = findNote(notes, title)
 
-    return resultList
+    if(note) {
+        return {
+            status: 0,
+            message: note.body
+        }
+    }
+
+    return {
+        status: 1,
+        message: `Could not find note for ${title}`
+    }
+}
+
+const findNote = (notes, title) => {
+    return notes.find((note) => note.title === title)
 }
 
 const saveNotes = (notes) => {
@@ -78,7 +104,8 @@ const loadNotes = () => {
 }
 
 module.exports = {
-    getNotes: getNotes,
+    listNotes: listNotes,
     addNote: addNote,
-    removeNote: removeNote
+    removeNote: removeNote,
+    readNote: readNote
 }
